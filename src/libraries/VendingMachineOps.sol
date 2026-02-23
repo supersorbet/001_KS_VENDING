@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.27;
 
+import {SafeCastLib} from "solady/utils/SafeCastLib.sol";
 import {SafeTransferLib} from "solady/utils/SafeTransferLib.sol";
 import {VendingMachineCore} from "./VendingMachineCore.sol";
 
@@ -8,6 +9,7 @@ import {VendingMachineCore} from "./VendingMachineCore.sol";
 /// @notice Operational functions for payment handling and state management
 library VendingMachineOps {
     using SafeTransferLib for address;
+    using SafeCastLib for uint256;
 
     /// @dev Internal function to handle payment for a purchase.
     /// @param paymentToken The token used for payment (address(0) for ETH).
@@ -49,19 +51,15 @@ library VendingMachineOps {
         address purchaser
     ) internal {
         VendingMachineCore.SaleConfig storage config = saleConfigs[tokenId];
-        if (config.totalSold > type(uint32).max - quantity) {
-            revert VendingMachineCore.ArithmeticOverflow();
-        }
-        config.totalSold += quantity;
+        config.totalSold = (uint256(config.totalSold) + quantity).toUint32();
+        
         bytes32 key = VendingMachineCore.getVersionedPurchaseKey(
             tokenId,
             config.saleVersion,
             purchaser
         );
-        if (versionedUserPurchases[key] > type(uint32).max - quantity) {
-            revert VendingMachineCore.ArithmeticOverflow();
-        }
-        versionedUserPurchases[key] += quantity;
+        
+        versionedUserPurchases[key] = (uint256(versionedUserPurchases[key]) + quantity).toUint32();
     }
 
     /// @dev Internal function to add a token ID to the active sales array if not already present.
