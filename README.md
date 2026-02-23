@@ -1,28 +1,27 @@
-# VendingMachine - Web3 MMO Item Sales Contract
+# VendingMachine - ERC1155/721 Item Sales Contract
 
-A secure, gas-optimized contract system for direct sales of in game Items (ERC1155) in a nostalgic MMO. This contract enables configurable sales with flexible payment options, per-address purchase limits, and comprehensive security features.
+A secure, gas-optimized system for direct sales of in game Items (ERC1155) in MMO on chain games. Allows for configurable sales with flexible payment options, purchase rounds, per-address purchase limits, and extensive security features.
 
 ### Key Features
 
-- ✅ **Secure Sales Management** - Configurable sales with time windows, supply limits, and per-address caps
-- ✅ **Flexible Payments** - Support for both ETH and ERC20 token payments
-- ✅ **Batch Operations** - Efficient batch purchases with optimized payment aggregation
-- ✅ **Gas Optimized** - Uses Solady libraries and efficient data structures (LibBitmap)
-- ✅ **Security Hardened** - Overflow protection, reentrancy guards, and comprehensive validation
+- ✅ **Sales Management** - Configurable sales with time windows, supply limits, and per-address caps
+- ✅ **Flexible Payments** - Support for both ETH and ERC20 payments
+- ✅ **Batch Operations** - Efficient batch purchases with optimized aggregation
+- ✅ **Gas Optimized** - Utilizes Solady libraries and efficient data structures
+- ✅ **Security** - Overflow protection, reentrancy guards, validation
 - ✅ **Modular Architecture** - Clean separation of concerns with reusable libraries
-- ✅ **Comprehensive Testing** - Unit, integration, fuzz, and invariant tests
+- ✅ **Comprehensive Testing** - Unit, integration, fuzz, and invariant test examples in folder files
 
-## Project Structure
+## Structure
 
 ```
 001_KS_VENDING/
 ├── src/
-│   ├── contracts/              # Main contracts
+│   ├── contracts/              # Main
 │   │   ├── KSVendingMachineOP_.sol    ✅ Production
-│   │   └── KSVendingMachineV056.sol          ⚠️  Older version (excluded)
-│   ├── interfaces/             # Contract interfaces
+│   ├── interfaces/            
 │   │   └── IVendingMachine.sol
-│   └── libraries/             # Shared libraries
+│   └── libraries/           
 │       ├── VendingMachineCore.sol    # Errors, types, validation logic
 │       └── VendingMachineOps.sol     # Payment & state management
 ├── test/
@@ -42,11 +41,11 @@ A secure, gas-optimized contract system for direct sales of in game Items (ERC11
 │       ├── MockERC1155.sol
 │       └── MockERC20.sol
 ├── lib/                       # Dependencies (git submodules)
-│   ├── solady/                # Gas-optimized Solidity libraries
-│   ├── openzeppelin-contracts/ # Standard token interfaces
+│   ├── solady/                # Optimized Solidity libraries
+│   ├── openzeppelin-contracts/ # Standard interfaces
 │   └── forge-std/             # Foundry testing utilities
-├── foundry.toml               # Foundry configuration
-└── README.md                   # This file
+├── foundry.toml               # Foundry config
+└── README.md               
 ```
 
 #### Libraries
@@ -55,7 +54,7 @@ A secure, gas-optimized contract system for direct sales of in game Items (ERC11
 - Custom errors (18 error types)
 - Type definitions (`SaleConfig` struct, `MAX_BATCH_SIZE` constant)
 - Validation functions (`validatePurchaseVersioned`, `checkForDuplicates`, `isLive`)
-- Key generation utilities
+- Key generation utils
 
 **`VendingMachineOps.sol`** (~130 lines)
 - Payment handling (`handlePayment` for ETH/ERC20)
@@ -66,14 +65,6 @@ A secure, gas-optimized contract system for direct sales of in game Items (ERC11
 - Complete interface definition for all public/external functions
 - All events
 - Enables easy mocking and alternative implementations
-
-### Benefits of Modular Architecture
-
-1. **Maintainability** - Single responsibility per library, easier bug fixes
-2. **Reusability** - Libraries can be used in other contracts
-3. **Testability** - Libraries can be tested independently
-4. **Readability** - Main contract is ~35% smaller & more precise
-5. **Gas Efficiency** - Libraries deployed once and reused
 
 ### Sales Configuration
 
@@ -98,7 +89,7 @@ Each sale can be configured with:
 
 3. **Optimized Batch Purchase** (`purchaseBatchOptimized`)
    - Aggregates ERC20 payments by token
-   - Reduces gas costs for multiple ERC20 purchases
+   - Reduces gas for multiple ERC20 purchases
    - One transfer per unique payment token
 
 ### Security Features
@@ -109,7 +100,7 @@ Each sale can be configured with:
 - `saleVersion` overflow prevention
 
 #### Validation
-- Sale must be active and within time window
+- Sale must be active and within timestamp window
 - Supply limits enforced (total and per-address)
 - Inventory verification
 - Duplicate token ID detection in batches
@@ -154,8 +145,6 @@ The `foundry.toml` file includes:
   - `solady/=lib/solady/src/`
   - `@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/`
   - `forge-std/=lib/forge-std/src/`
-
-## Usage
 
 ### Deployment
 
@@ -268,7 +257,7 @@ vendingMachine.purchaseBatch{value: totalCost}(tokenIds, quantities);
 
 ### Best Practices
 
-- Always verify sale configuration before purchases
+- Always verify and DOUBLE CHECK sale configuration before purchases
 - Use `checkInventory: true` when configuring sales
 - Monitor `totalSold` to prevent supply exhaustion
 - Set appropriate `maxPerAddress` limits
@@ -277,17 +266,17 @@ vendingMachine.purchaseBatch{value: totalCost}(tokenIds, quantities);
 
 ## Optimization
 
-The contract uses several optimization techniques:
+Several optimization practices:
 
 - **LibBitmap** - Efficient active sales tracking (1 bit per sale)
 - **Packed Storage** - `SaleConfig` struct uses packed storage layout
 - **Batch Aggregation** - `purchaseBatchOptimized` reduces ERC20 transfers
 - **Efficient Array Management** - O(1) removal from active sales array
-- **Solady Libraries** - Gas-optimized implementations
+- **Solady Libraries** - Gas-optimized solidity utility implementations
 
 ## Testing
 
-The project includes comprehensive testing across multiple levels:
+Includes comprehensive testing across multiple levels:
 
 ### Test Types
 
@@ -346,10 +335,6 @@ When contributing to this project:
 
 ## License
 
-MIT License - See LICENSE file for details
-
-## Support
-
-For issues, questions, or contributions, please refer to the project repository & organization.
+MIT License - 
 
 
