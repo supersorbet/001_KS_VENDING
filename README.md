@@ -1,6 +1,6 @@
 # VendingMachine - ERC1155/721 Item Sales Contract
 
-A secure, gas-optimized system for direct sales of in game Items (ERC1155) in MMO on chain games. Allows for configurable sales with flexible payment options, purchase rounds, per-address purchase limits, and extensive security features.
+A secure, gas-optimized system for direct sales of in game Items (ERC1155) in MMO on-chain games. Allows for configurable sales with flexible payment options, purchase rounds, per-address purchase limits, and extensive security features.
 
 ### Key Features
 
