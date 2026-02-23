@@ -49,17 +49,6 @@ A secure, gas-optimized contract system for direct sales of in game Items (ERC11
 └── README.md                   # This file
 ```
 
-## Architecture
-
-The contract has been refactored into a clean, modular architecture:
-
-#### Main Contract (`KSVendingMachineOP_.sol`)
-- **Size**: ~750 lines (reduced from ~1020 lines)
-- **Purpose**: High-level orchestration and contract interface
-- **Responsibilities**: 
-  - Public/external function definitions
-  - Rich Event emissions
-
 #### Libraries
 
 **`VendingMachineCore.sol`** (~170 lines)
